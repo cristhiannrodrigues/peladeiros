@@ -4,14 +4,15 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "players")
-public class PlayersEntity implements Serializable {
+@Table(name = "game")
+public class GameEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,14 +21,12 @@ public class PlayersEntity implements Serializable {
     private Integer id;
 
     @NonNull
+    private Date date;
+
+    @NonNull
     private String name;
 
     @NonNull
-    private String lastName;
-
-    private String phone;
-
-    @NonNull
-    private Integer invited = 0;
+    private String local;
 
 }

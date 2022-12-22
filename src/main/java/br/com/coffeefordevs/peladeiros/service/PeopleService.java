@@ -16,21 +16,21 @@ public class PeopleService {
     private PeopleRepository peopleRepository;
 
     public List<PeopleDTO> findAllPeopleDTO() {
-        List<PeopleDTO> dto = null;
-        Iterable<PeopleEntity> peopleEntities = peopleRepository.findAll();
-
-        if(peopleEntities.iterator().hasNext()) {
-            dto = new ArrayList<>();
-            for(PeopleEntity people : peopleEntities) {
-                dto.add(new PeopleDTO(
-                        people.getId(),
-                        people.getName(),
-                        people.getLastName(),
-                        people.getPhone()
-                ));
-            }
+        List<PeopleDTO> dto = new ArrayList<>();
+        for(PeopleEntity people : findAllPeople()) {
+            dto.add(new PeopleDTO(
+                    people.getId(),
+                    people.getName(),
+                    people.getLastName(),
+                    people.getPhone()
+            ));
         }
         return dto;
+    }
+
+    public Iterable<PeopleEntity> findAllPeople() {
+        Iterable<PeopleEntity> peoples = peopleRepository.findAll();
+        return peoples;
     }
 
 }

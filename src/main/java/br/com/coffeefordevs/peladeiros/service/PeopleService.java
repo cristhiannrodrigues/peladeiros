@@ -19,7 +19,6 @@ public class PeopleService {
         List<PeopleDTO> dto = new ArrayList<>();
         for(PeopleEntity people : findAllPeople()) {
             dto.add(new PeopleDTO(
-                    people.getId(),
                     people.getName(),
                     people.getLastName(),
                     people.getPhone()
@@ -28,9 +27,28 @@ public class PeopleService {
         return dto;
     }
 
+    private PeopleEntity insertPeople(String name, String lastName, String phone) {
+        return peopleRepository.save(new PeopleEntity(
+                name,
+                lastName,
+                phone
+        ));
+    }
+
     public Iterable<PeopleEntity> findAllPeople() {
         Iterable<PeopleEntity> peoples = peopleRepository.findAll();
         return peoples;
     }
 
+    public PeopleDTO insertPeopleDTO(PeopleDTO peopleDTO) {
+        if(peopleDTO != null) {
+            PeopleEntity peopleEntity = insertPeople(peopleDTO.getName(), peopleDTO.getLastName(), peopleDTO.getPhone());
+            return new PeopleDTO(
+                    peopleEntity.getName(),
+                    peopleEntity.getLastName(),
+                    peopleEntity.getPhone()
+            );
+        }
+        return null;
+    }
 }

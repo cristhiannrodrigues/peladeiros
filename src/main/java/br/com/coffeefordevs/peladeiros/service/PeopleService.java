@@ -8,12 +8,25 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PeopleService {
 
     @Autowired
     private PeopleRepository peopleRepository;
+
+    public PeopleDTO insertPeopleDTO(PeopleDTO peopleDTO) {
+        if(peopleDTO != null) {
+            PeopleEntity peopleEntity = insertPeople(peopleDTO.getName(), peopleDTO.getLastName(), peopleDTO.getPhone());
+            return new PeopleDTO(
+                    peopleEntity.getName(),
+                    peopleEntity.getLastName(),
+                    peopleEntity.getPhone()
+            );
+        }
+        return null;
+    }
 
     public List<PeopleDTO> findAllPeopleDTO() {
         List<PeopleDTO> dto = new ArrayList<>();
@@ -25,6 +38,15 @@ public class PeopleService {
             ));
         }
         return dto;
+    }
+
+    public PeopleDTO findPeopleDTOById(Integer id) {
+        Optional<PeopleEntity> peopleEntity = findPeopleById(id);
+        return peopleEntity.map(entity -> new PeopleDTO(
+                entity.getName(),
+                entity.getLastName(),
+                entity.getPhone()
+        )).orElse(null);
     }
 
     private PeopleEntity insertPeople(String name, String lastName, String phone) {
@@ -40,15 +62,10 @@ public class PeopleService {
         return peoples;
     }
 
-    public PeopleDTO insertPeopleDTO(PeopleDTO peopleDTO) {
-        if(peopleDTO != null) {
-            PeopleEntity peopleEntity = insertPeople(peopleDTO.getName(), peopleDTO.getLastName(), peopleDTO.getPhone());
-            return new PeopleDTO(
-                    peopleEntity.getName(),
-                    peopleEntity.getLastName(),
-                    peopleEntity.getPhone()
-            );
-        }
-        return null;
+    public Optional<PeopleEntity> findPeopleById(Integer id) {
+       Optional<PeopleEntity> people = peopleRepository.findById(id);
+       return people;
     }
+
+
 }

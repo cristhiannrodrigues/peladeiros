@@ -1,7 +1,6 @@
 package br.com.coffeefordevs.peladeiros.controller;
 
 import br.com.coffeefordevs.peladeiros.dto.PeopleDTO;
-import br.com.coffeefordevs.peladeiros.entity.PeopleEntity;
 import br.com.coffeefordevs.peladeiros.repository.PeopleRepository;
 import br.com.coffeefordevs.peladeiros.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -23,6 +21,15 @@ public class PeopleController {
     public static final String PATH = "/api/people";
     @Autowired
     private PeopleRepository peopleRepository;
+
+    @PostMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PeopleDTO> getPeopleById(@PathVariable("id") Integer id) {
+        PeopleDTO peopleDTO = peopleService.findPeopleDTOById(id);
+        if(peopleDTO != null) {
+            return ResponseEntity.ok(peopleDTO);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PeopleDTO> insertPeople(@RequestBody PeopleDTO peopleDTO) {
@@ -42,7 +49,7 @@ public class PeopleController {
             }
             return ResponseEntity.ok(peopleDTOList);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 

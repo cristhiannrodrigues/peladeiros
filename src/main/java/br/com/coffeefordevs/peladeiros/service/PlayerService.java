@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlayerService {
@@ -29,6 +30,14 @@ public class PlayerService {
 
     public Iterable<PlayerEntity> findAllPlayers() {
         return playerRepository.findAll();
+    }
+
+    public Optional<PlayerEntity> findPlayerById(Integer id) {
+        return playerRepository.findById(id);
+    }
+
+    public PlayerEntity insertPlayer(PlayerEntity playerEntity) {
+        return playerRepository.save(playerEntity);
     }
 
 }

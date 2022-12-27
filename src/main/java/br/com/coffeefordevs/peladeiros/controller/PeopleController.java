@@ -24,7 +24,7 @@ public class PeopleController {
 
     @PostMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PeopleDTO> getPeopleById(@PathVariable("id") Integer id) {
-        PeopleDTO peopleDTO = peopleService.findPeopleDTOById(id);
+        PeopleDTO peopleDTO = peopleService.findDTOById(id);
         if(peopleDTO != null) {
             return ResponseEntity.ok(peopleDTO);
         }
@@ -33,7 +33,7 @@ public class PeopleController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PeopleDTO> insertPeople(@RequestBody PeopleDTO peopleDTO) {
-        PeopleDTO insert = peopleService.insertPeopleDTO(peopleDTO);
+        PeopleDTO insert = peopleService.insertDTO(peopleDTO);
         if(insert != null) {
             return ResponseEntity.ok(insert);
         }
@@ -42,7 +42,7 @@ public class PeopleController {
 
     @GetMapping(produces = {"application/json"})
     public ResponseEntity<List<PeopleDTO>> getAllPeople() {
-        List<PeopleDTO> peopleDTOList = peopleService.findAllPeopleDTO();
+        List<PeopleDTO> peopleDTOList = peopleService.findAllDTO();
         if (peopleDTOList != null) {
             if(peopleDTOList.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

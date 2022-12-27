@@ -16,9 +16,9 @@ public class PeopleService {
     @Autowired
     private PeopleRepository peopleRepository;
 
-    public PeopleDTO insertPeopleDTO(PeopleDTO peopleDTO) {
+    public PeopleDTO insertDTO(PeopleDTO peopleDTO) {
         if(peopleDTO != null) {
-            PeopleEntity peopleEntity = insertPeople(peopleDTO.getName(), peopleDTO.getLastName(), peopleDTO.getPhone());
+            PeopleEntity peopleEntity = insert(peopleDTO.getName(), peopleDTO.getLastName(), peopleDTO.getPhone());
             return new PeopleDTO(
                     peopleEntity.getName(),
                     peopleEntity.getLastName(),
@@ -28,9 +28,9 @@ public class PeopleService {
         return null;
     }
 
-    public List<PeopleDTO> findAllPeopleDTO() {
+    public List<PeopleDTO> findAllDTO() {
         List<PeopleDTO> dto = new ArrayList<>();
-        for(PeopleEntity people : findAllPeople()) {
+        for(PeopleEntity people : findAll()) {
             dto.add(new PeopleDTO(
                     people.getName(),
                     people.getLastName(),
@@ -40,8 +40,8 @@ public class PeopleService {
         return dto;
     }
 
-    public PeopleDTO findPeopleDTOById(Integer id) {
-        Optional<PeopleEntity> peopleEntity = findPeopleById(id);
+    public PeopleDTO findDTOById(Integer id) {
+        Optional<PeopleEntity> peopleEntity = findById(id);
         return peopleEntity.map(entity -> new PeopleDTO(
                 entity.getName(),
                 entity.getLastName(),
@@ -49,7 +49,7 @@ public class PeopleService {
         )).orElse(null);
     }
 
-    private PeopleEntity insertPeople(String name, String lastName, String phone) {
+    private PeopleEntity insert(String name, String lastName, String phone) {
         return peopleRepository.save(new PeopleEntity(
                 name,
                 lastName,
@@ -57,15 +57,21 @@ public class PeopleService {
         ));
     }
 
-    public Iterable<PeopleEntity> findAllPeople() {
+    public Iterable<PeopleEntity> findAll() {
         Iterable<PeopleEntity> peoples = peopleRepository.findAll();
         return peoples;
     }
 
-    public Optional<PeopleEntity> findPeopleById(Integer id) {
+    public Optional<PeopleEntity> findById(Integer id) {
        Optional<PeopleEntity> people = peopleRepository.findById(id);
        return people;
     }
 
+    public boolean existPeopleById(Integer id) {
+        if(findById(id).isPresent()) {
+            return true;
+        }
+        return false;
+    }
 
 }

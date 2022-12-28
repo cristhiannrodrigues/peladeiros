@@ -16,6 +16,12 @@ public class GameEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public GameEntity(Date date, String name, String local) {
+        setDate(date);
+        setName(name);
+        setLocal(local);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

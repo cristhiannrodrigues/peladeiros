@@ -20,7 +20,6 @@ public class PeopleService {
         if(peopleDTO != null) {
             PeopleEntity peopleEntity = insert(peopleDTO.getName(), peopleDTO.getLastName(), peopleDTO.getPhone());
             return new PeopleDTO(
-                    peopleDTO.getId(),
                     peopleEntity.getName(),
                     peopleEntity.getLastName(),
                     peopleEntity.getPhone()
@@ -33,7 +32,6 @@ public class PeopleService {
         List<PeopleDTO> dto = new ArrayList<>();
         for(PeopleEntity people : findAll()) {
             dto.add(new PeopleDTO(
-                    people.getId(),
                     people.getName(),
                     people.getLastName(),
                     people.getPhone()
@@ -45,7 +43,6 @@ public class PeopleService {
     public PeopleDTO findDTOById(Integer id) {
         Optional<PeopleEntity> peopleEntity = findById(id);
         return peopleEntity.map(entity -> new PeopleDTO(
-                entity.getId(),
                 entity.getName(),
                 entity.getLastName(),
                 entity.getPhone()

@@ -42,7 +42,6 @@ public class PlayerService {
         List<PlayerDTO> dto = new ArrayList<>();
         for(PlayerEntity player : findAll()) {
             dto.add( new PlayerDTO(
-                    player.getId(),
                     player.getIdPeople(),
                     player.getInvited()
             ) );
@@ -53,7 +52,6 @@ public class PlayerService {
     public PlayerDTO findDTOById(Integer id) {
         Optional<PlayerEntity> playerEntity = findById(id);
         return playerEntity.map(entity -> new PlayerDTO(
-                entity.getId(),
                 entity.getIdPeople(),
                 entity.getInvited()
         )).orElse(null);

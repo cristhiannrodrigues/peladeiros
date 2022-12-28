@@ -33,6 +33,7 @@ public class TeamService {
         List<TeamDTO> dto = new ArrayList<>();
         for(TeamEntity entity : findAll()) {
             dto.add( new TeamDTO(
+                    entity.getId(),
                     entity.getName()
             ) );
         }
@@ -42,6 +43,7 @@ public class TeamService {
     public TeamDTO findDTOById(Integer id) {
         Optional<TeamEntity> playerEntity = findById(id);
         return playerEntity.map(entity -> new TeamDTO(
+                entity.getId(),
                 entity.getName()
         )).orElse(null);
     }

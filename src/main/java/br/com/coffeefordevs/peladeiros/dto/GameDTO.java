@@ -10,6 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class GameDTO {
 
+    private Integer id;
     private Date date;
     private String name;
     private String local;

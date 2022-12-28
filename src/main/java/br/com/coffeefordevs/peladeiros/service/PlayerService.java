@@ -25,8 +25,8 @@ public class PlayerService {
         if(playerDTO != null) {
             if(!peopleService.existPeopleById(playerDTO.getIdPeople())) {
                 return new ReturnDTO(
-                        CodeEnum.VALUE_NOT_FOUND.getCod(),
-                        CodeEnum.VALUE_NOT_FOUND.getMessage()
+                        CodeEnum.PEOPLE_NOT_FOUND.getCod(),
+                        CodeEnum.PEOPLE_NOT_FOUND.getMessage()
                 );
             }
             PlayerEntity playerEntity = insert(new PlayerEntity(playerDTO.getIdPeople(), playerDTO.getInvited()));
@@ -42,6 +42,7 @@ public class PlayerService {
         List<PlayerDTO> dto = new ArrayList<>();
         for(PlayerEntity player : findAll()) {
             dto.add( new PlayerDTO(
+                    player.getId(),
                     player.getIdPeople(),
                     player.getInvited()
             ) );
@@ -52,6 +53,7 @@ public class PlayerService {
     public PlayerDTO findDTOById(Integer id) {
         Optional<PlayerEntity> playerEntity = findById(id);
         return playerEntity.map(entity -> new PlayerDTO(
+                entity.getId(),
                 entity.getIdPeople(),
                 entity.getInvited()
         )).orElse(null);

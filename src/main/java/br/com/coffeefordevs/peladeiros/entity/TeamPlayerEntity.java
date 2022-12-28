@@ -15,6 +15,12 @@ public class TeamPlayerEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public TeamPlayerEntity(Integer idTeam, Integer idPlayer, Integer active) {
+        setIdTeam(idTeam);
+        setIdPlayer(idPlayer);
+        setActive(active);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -24,5 +30,8 @@ public class TeamPlayerEntity implements Serializable {
 
     @NonNull
     private Integer idPlayer;
+
+    @NonNull
+    private Integer active = 1;
 
 }

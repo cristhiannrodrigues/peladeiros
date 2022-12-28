@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public enum CodeEnum {
     SUCCESS(00, "SUCCESS"),
-    VALUE_NOT_FOUND(44, "PEOPLE NOT FOUND");
+    PEOPLE_NOT_FOUND(41, "PEOPLE NOT FOUND"),
+    TEAM_NOT_FOUND(42, "TEAM NOT FOUND"),
+    PLAYER_NOT_FOUND(43, "PLAYER NOT FOUND");
 
     private Integer cod;
     private String message;

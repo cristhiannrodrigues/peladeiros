@@ -35,6 +35,7 @@ public class GameService {
         List<GameDTO> dto = new ArrayList<>();
         for(GameEntity entity : findAll()) {
             dto.add( new GameDTO(
+                    entity.getId(),
                     entity.getDate(),
                     entity.getName(),
                     entity.getLocal()
@@ -46,6 +47,7 @@ public class GameService {
     public GameDTO findDTOById(Integer id) {
         Optional<GameEntity> playerEntity = findById(id);
         return playerEntity.map(entity -> new GameDTO(
+                entity.getId(),
                 entity.getDate(),
                 entity.getName(),
                 entity.getLocal()
